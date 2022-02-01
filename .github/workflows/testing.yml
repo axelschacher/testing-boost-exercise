@@ -1,0 +1,57 @@
+name: Testing workflow
+
+on: push
+
+jobs:
+  style:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.8.10'
+      # Install and run clang-format
+      - name: "Install clang-format"
+        run: apt install clang-format
+      - name: "Run clang-format"
+        run: clang-format --dry-run -Werror src/* tests/*.cpp
+
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.8.10'
+      - name: "Compile and build code"
+        run: |
+          mkdir build
+          cp tests/testconfig.yml build/
+          cd build/
+          cmake ..
+          make -j
+      - name: "Save build folder"
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: build/
+          retention-days: 1
+
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.8.10'
+        - name: "Download build folder"
+          uses: actions/download-artifact@v2
+            with:
+              name: build
+        - name: "Test code"
+          run: |
+            cd build/
+            make test
