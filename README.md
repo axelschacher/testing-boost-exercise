@@ -1,3 +1,5 @@
+![GitHub CI/CD](https://github.com/axelschacher/testing-boost-exercise/.github/workflows/testing.yml/badge.svg)
+
 # SIDEMADE - Simple Dense Matrix Decomposition
 
 A simple demo code to read dense matrices from files and solve linear systems with them.
@@ -6,7 +8,7 @@ A simple demo code to read dense matrices from files and solve linear systems wi
 
 - `cmake`: Third-party CMake modules
 - `CMakeLists.txt`: CMake configuration file
-- `config.yml`: SIDEMADE configuration file 
+- `config.yml`: SIDEMADE configuration file
 - `data`: Various dense matrices
   - `m3.csv`: A 3x3 matrix with randomly generated entries
   - `m10.csv`: An ill-conditioned 10x10 [Hilbert matrix](https://math.nist.gov/MatrixMarket/deli/Hilbert/)
@@ -20,7 +22,7 @@ A simple demo code to read dense matrices from files and solve linear systems wi
   - `matrixIO.hpp/cpp`: IO methods to read Eigen matrices from or write them to csv files
   - `main.cpp`: Main file
 - `tests`: Unit tests
-  
+
 ## Building
 
 You can build the code using CMake:

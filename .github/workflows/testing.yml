@@ -1,0 +1,56 @@
+name: Testing workflow
+
+on: push
+
+jobs:
+  style:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # Install and run clang-format
+      - name: "Install clang-format"
+        run: sudo apt install clang-format
+      - name: "Run clang-format"
+        run: clang-format --dry-run -Werror src/* tests/*.cpp
+
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: "Install dependencies"
+        run: sudo apt install libeigen3-dev libboost-all-dev libyaml-cpp-dev
+      - name: "Compile and build code"
+        run: |
+          mkdir build
+          cp tests/testconfig.yml build/
+          cd build/
+          cmake ..
+          make -j
+      - name: "Pack build folder"
+        run: zip -r build.zip  build/
+      - name: "Save build folder"
+        uses: actions/upload-artifact@v2
+        with:
+          name: build.zip
+          path: build.zip
+          retention-days: 1
+
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: "Install dependencies"
+        run: sudo apt install libeigen3-dev libboost-all-dev libyaml-cpp-dev
+      - name: "Download build folder"
+        uses: actions/download-artifact@v2
+        with:
+          name: build.zip
+      - name: "Unpack build folder"
+        run: unzip build.zip
+      - name: "Test code"
+        run: |
+          cd build/
+          make test
