@@ -21,9 +21,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: '3.8.10'
       - name: "Compile and build code"
         run: |
           mkdir build
@@ -44,10 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: '3.8.10'
-        - name: "Download build folder"
+      - name: "Download build folder"
           uses: actions/download-artifact@v2
             with:
               name: build
