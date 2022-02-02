@@ -46,6 +46,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build
+      - name: "Test code"
+        run: |
+          cd build/
+          make test
 
     # needs: build
     # runs-on: ubuntu-latest
