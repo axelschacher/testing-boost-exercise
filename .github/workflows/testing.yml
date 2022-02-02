@@ -35,16 +35,16 @@ jobs:
           retention-days: 1
 
 
-  # test:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: "Download build folder"
-  #         uses: actions/download-artifact@v2
-  #           with:
-  #             name: build
-  #       - name: "Test code"
-  #         run: |
-  #           cd build/
-  #           make test
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: "Download build folder"
+          uses: actions/download-artifact@v2
+            with:
+              name: build
+        - name: "Test code"
+          run: |
+            cd build/
+            make test
