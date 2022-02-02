@@ -44,8 +44,8 @@ jobs:
         run: sudo apt install libeigen3-dev libboost-all-dev libyaml-cpp-dev
       - name: "Download build folder"
         uses: actions/download-artifact@v2
-          with:
-            name: build
+        with:
+          name: build
 
     # needs: build
     # runs-on: ubuntu-latest
