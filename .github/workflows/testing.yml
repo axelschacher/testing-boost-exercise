@@ -42,19 +42,11 @@ jobs:
       - uses: actions/checkout@v2
       - name: "Install dependencies"
         run: sudo apt install libeigen3-dev libboost-all-dev libyaml-cpp-dev
-      - name: "Compile and build code"
-        run: |
-          mkdir build
-          cp tests/testconfig.yml build/
-          cd build/
-          cmake ..
-          make -j
-      - name: "Save build folder"
-        uses: actions/upload-artifact@v2
-        with:
-          name: build2
-          path: build/
-          retention-days: 1
+      - name: "Download build folder"
+        uses: actions/download-artifact@v2
+          with:
+            name: build
+
     # needs: build
     # runs-on: ubuntu-latest
     # steps:
