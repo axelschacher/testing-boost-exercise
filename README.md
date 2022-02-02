@@ -1,4 +1,4 @@
-![GitHub CI/CD](https://github.com/axelschacher/testing-boost-exercise/.github/workflows/testing.yml/badge.svg)
+![GitHub CI/CD](https://github.com/axelschacher/testing-boost-exercise/actions/workflows/testing.yml/badge.svg)
 
 # SIDEMADE - Simple Dense Matrix Decomposition
 
